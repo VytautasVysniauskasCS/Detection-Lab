@@ -4,6 +4,8 @@
 This project's objective was to build a home lab for practicing attack detection using a SIEM. Rather than just installing tools, I wanted to generate realistic attack activity, write my own detection logic, and document the full process from log ingestion to alert.
 
 ## What I Learned
+- How to find information online and troubleshoot unexpected scenarios and errors.
+- Establishing connection between multiple virtual machines.
 - 
 
 ## Tools Used
@@ -275,3 +277,59 @@ The second time I tried pinging the IP address of Kali VM, I instantly got a res
 
 ## 3) Splunk set up
 
+I could've done this step as soon as I set up windows VM but I wanted to make sure there's an active connection between the Windows and Kali VMs. Now that I confirmed that there is a connection, I proceeded to both install and set up Splunk as my monitoring tool for the future malware analysis.
+
+I immediately ran into a big problem because of this decision. Splunk needs to be downloaded on the internet and because I'm using internal network settings for my VMs, I have no access to the internet so I really had 2 options to choose from.
+
+1) Switch to NAT network type, install the necessary tools and then redo the steps in internal network settings.
+2) Try the shared folders feature and send the installation file of Splunk to the Windows VM.
+
+Because I never used the shared folder feature before and redoing everything wouldn't be as informative. I decided to try my luck on the shared folder feature.
+
+To start off, I had to go on the Windows VM, click on devices at the top, shared folders and shared folder settings.
+
+<img width="496" height="184" alt="image" src="https://github.com/user-attachments/assets/4341edf5-abd1-4576-9c2f-f4c9f49006ff" />
+
+*Fig 42: Shared folder settings navigation*
+
+I then clicked "Machine Folders" and pressed the add shared folder button on the right which opened up my host file explorer and made me navigate to a folder that would be the shared folder. I created a new one on the C drive and called it "shared_folder". I applied Auto-Mount and made it machine-permanent so that it wouldn't be deleted after I restart the VM.
+
+<img width="543" height="304" alt="image" src="https://github.com/user-attachments/assets/f8b8505b-f817-4f23-be6f-1897ddff7fba" />
+
+*Fig 43: Creating a shared folder*
+
+Surprisingly or not, I didn't see the shared folder I created on the VM which was supposed to be next to local disk but nothing was found there.
+
+<img width="560" height="159" alt="image" src="https://github.com/user-attachments/assets/eb507358-05e7-4c5d-babe-c8e727829b96" />
+
+*Fig 44: No "shared_folder" seen on the VM*
+
+I then read on the internet that in order for shared folders feature to work, I needed to install guest additions on the VM. You can already see the guest additions next to the local disk but I had yet tried to navigate or install them. They appeared after I clicked on devices again and then clicked "Insert Guest Additions CD Image..."
+
+<img width="266" height="266" alt="image" src="https://github.com/user-attachments/assets/12a93a2d-f6ff-4892-bae9-9541801b1b55" />
+
+*Fig 45: Inserting guest additions cd image*
+
+After figuring out the process on how to install them on the internet, I tried the same on my own VM. First I started the installation of additions by starting the "VBoxWindowsAdditions" installer.
+
+<img width="614" height="65" alt="image" src="https://github.com/user-attachments/assets/bd0d1ed0-6dc5-49e2-97ac-ef5563bfceb3" />
+
+*Fig 46: Starting the installer for the 64 bit machine*
+
+After finishing the installation, a reboot was required for the VM at the end.
+
+<img width="493" height="386" alt="image" src="https://github.com/user-attachments/assets/0b009a8b-a943-4114-870f-31c3caa4f3be" />
+
+*Fig 47: Required reboot after install*
+
+During the reboot, I encountered my first VM crash which made me restart the reboot process hoping everything will be working as intended.
+
+<img width="566" height="469" alt="image" src="https://github.com/user-attachments/assets/80172a7f-bc13-40b4-b08e-ec5407f7970d" />
+
+*Fig 48: Windows VM loading screen stuck during reboot*
+
+After restarting the VM a second time and checking the file explorer, I saw that the shared folder disk now appears and is working as intended. I was able to proceed in actually installing Splunk now.
+
+<img width="540" height="178" alt="image" src="https://github.com/user-attachments/assets/763e158c-65ca-4075-b91e-ec88fb4865ac" />
+
+*Fig 49: Shared folder now working as intended*
