@@ -333,3 +333,87 @@ After restarting the VM a second time and checking the file explorer, I saw that
 <img width="540" height="178" alt="image" src="https://github.com/user-attachments/assets/763e158c-65ca-4075-b91e-ec88fb4865ac" />
 
 *Fig 49: Shared folder now working as intended*
+
+On the host computer, I navigated to the Splunk website to download Splunk Enterprise free trial version.
+
+<img width="568" height="376" alt="image" src="https://github.com/user-attachments/assets/a8c06d63-0dea-4ea5-be07-c8ba65a03369" />
+
+*Fig 50: Splunk Enterprise free trial*
+
+To start the free trial and begin downloading, I had to create an account and write some pretty private credentials that I won't share in this documentary but after creating an account and verifying via email, I was able to begin the installation file.
+
+<img width="1211" height="213" alt="image" src="https://github.com/user-attachments/assets/9d987518-95e5-4c11-8361-e7d816724bf4" />
+
+*Fig 51: Different install packages for different operating systems*
+
+After downloading the .msi file, I put it in the shared folder that I created and see it successfully transfer to my Windows VM.
+
+<img width="1504" height="339" alt="image" src="https://github.com/user-attachments/assets/2cb72a25-2f32-44de-9283-a19131f3f29a" />
+
+*Fig 52: Different install packages for different operating systems*
+
+With the troubleshooting process being finally done for now, I was able to begin installing and setting up Splunk on my Windows VM.
+
+To begin the install process, I first had to agree with their license agreement.
+
+<img width="521" height="405" alt="image" src="https://github.com/user-attachments/assets/2c3b3c85-6bf2-4b4e-a273-578ef2a0a952" />
+
+*Fig 53: A need to agree with license agreement before starting install process*
+
+Then I had to set up my login credentials, I will be using credentials that I personally know very well and should not forget in the near future.
+
+<img width="494" height="381" alt="image" src="https://github.com/user-attachments/assets/5714cd22-f051-4f7b-9b74-cab3ea9f70f8" />
+
+*Fig 54: Requirement to set up login credentials*
+
+After filling them out, starting the install process and waiting it out, I was able to launch Splunk Enterprise on my own Windows VM.
+
+<img width="525" height="395" alt="image" src="https://github.com/user-attachments/assets/ad5fd6d9-333a-480f-b4fa-a979a8f7c070" />
+
+*Fig 55: Installation for Splunk Enterprise complete*
+
+After launching Splunk on my localhost, the final step I had to do was fill in the credentials I wrote in before starting the installation process.
+
+<img width="612" height="233" alt="image" src="https://github.com/user-attachments/assets/dbcdd7ef-1881-4593-b191-604c248a987d" />
+
+*Fig 56: Log in credentials requirement for Splunk Enterprise*
+
+Once I logged in to my account, I finally had full access to Splunk on the Windows VM.
+
+<img width="1820" height="928" alt="image" src="https://github.com/user-attachments/assets/bca7bce5-6b6c-4cb9-888e-311c6b5c2959" />
+
+*Fig 57: Splunk successfully launched on Windows VM*
+
+To test out if it actually works, I decided to try add data and monitor the system. To do that I first pressed "Add Data" and then "Monitor" option.
+
+<img width="983" height="297" alt="image" src="https://github.com/user-attachments/assets/e074fd2a-755b-4bce-840d-ec73f234eebf" />
+
+*Fig 58: Adding monitoring data to test Splunk*
+
+I chose to monitor local event logs and from them I picked system, security and applications.
+
+<img width="1089" height="355" alt="image" src="https://github.com/user-attachments/assets/3c5bc40c-2cdf-4b18-9735-a81a92a1a112" />
+
+*Fig 59: Choosing what things to monitor*
+
+Once I chose the index as main and pressed next a couple more times, I was able to begin searching and monitor the logs.
+
+<img width="848" height="459" alt="image" src="https://github.com/user-attachments/assets/5ca0d492-7f37-48da-98b6-6c4f9f5d3100" />
+
+*Fig 60: Choosing index as main*
+
+<img width="632" height="316" alt="image" src="https://github.com/user-attachments/assets/07103942-f320-496d-af44-e986a859a5ae" />
+
+*Fig 61: Monitoring logs successfully selected*
+
+After starting the search, I was able to finally look at the logs Splunk was showing me while monitoring the system and was able to confirm it's working on the VM system.
+
+<img width="1756" height="797" alt="image" src="https://github.com/user-attachments/assets/f1347f62-4e90-41eb-9cc9-082545618b41" />
+
+*Fig 62: Logs generated and confirming Splunk is working*
+
+Because I made a ton of progress that I was scared to lose due to some error, I instantly took another snapshot after confirming Splunk has been installed and is working properly on the machine.
+
+<img width="351" height="183" alt="image" src="https://github.com/user-attachments/assets/d00bfe38-8166-40f1-98ea-c06f7120152f" />
+
+*Fig 63: Taking the 3rd snapshot after Splunk installation*
