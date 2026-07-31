@@ -236,4 +236,42 @@ I then pressed the "add" button on the right and typed in the IP address of 192.
 
 <img width="693" height="540" alt="image" src="https://github.com/user-attachments/assets/d8ae4a2e-7b1d-45ff-9472-4879188fdc38" />
 
-*Fig 35: Writing in the static IP address*
+*Fig 35: Selecting the manual mode*
+
+When I went to check the IP address in the terminal screen, I actually got an error and had my first problem to troubleshoot, instead of seeing the IPv4 address, it never showed and instead only showed IPv6 like IPv4 was not configured at all.
+
+<img width="665" height="426" alt="image" src="https://github.com/user-attachments/assets/1047cafc-0d92-45b5-9763-dbd9ffcd7a39" />
+
+*Fig 36: Inet information not showing, only inet6 showing*
+
+What bugged me was the loading circle when navigating to network settings so I reloaded the VM and the icon was not loading anymore which made the confirmation work as intended.
+
+<img width="248" height="61" alt="image" src="https://github.com/user-attachments/assets/c6c6d3fc-81aa-41b7-83ab-71dab5666e25" />
+
+*Fig 37: Network settings option not being a loading circle anymore*
+
+<img width="612" height="81" alt="image" src="https://github.com/user-attachments/assets/6cd2c095-ec88-4f08-8ffa-5d0342250514" />
+
+*Fig 38: The IP address and netmask being shown exactly as configured*
+
+The final confirmation I needed now was a successful connection between the two VMs but because of Windows firewall that would block unregistered ICMP traffic, I had to switch to Windows VM to test the connection.
+Before that I took a snapshot of configured Kali VM.
+
+<img width="422" height="182" alt="image" src="https://github.com/user-attachments/assets/6cbabb86-9b5d-422a-a8c2-2c5a3ff3d786" />
+
+*Fig 39: Taking a second snapshot of Kali VM as backup*
+
+The first time I tried to test the connection between the two VMs I actually got no response but I instantly figured out that the problem was me shutting down the Kali VM when trying to connect the two.
+
+<img width="533" height="221" alt="image" src="https://github.com/user-attachments/assets/9e1bf40e-d1c8-4e8f-b313-c25cd2809da9" />
+
+*Fig 40: No response when trying to ping Kali VM*
+
+The second time I tried pinging the IP address of Kali VM, I instantly got a response which confirmed an existing connection between the VMs.
+
+<img width="485" height="234" alt="image" src="https://github.com/user-attachments/assets/b612700f-84e2-4d68-ba85-0ebfc0d7eb5c" />
+
+*Fig 41: Ping response from Kali VM, proving connectivity*
+
+## 3) Splunk set up
+
