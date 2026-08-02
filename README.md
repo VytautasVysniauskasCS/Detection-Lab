@@ -629,3 +629,165 @@ It is worth noting that I didn't actually delete the folder, I just removed acce
 <img width="666" height="323" alt="image" src="https://github.com/user-attachments/assets/4e741f5f-9ce4-4148-b9e4-48c22333e41e" />
 
 *Fig 96: Continued existence of the "shared_folder" on my host machine*
+
+## 6) Malware Creation
+
+After being done with quite a bit of setting up and troubleshooting, I was finally able to move on to the more interesting stuff. For a while I can be done with Windows and move onto Kali on Linux so first thing first of course, I booted up Kali VM.
+
+After logging in with Kali login credentials from the setup, I first created a new file, checked my IP address with ifconfig and pasted it in the new file that I just created because I'll be needing it later for malware setup and I'd rather not trust my memory to get retype the IP address. It is definitely not a necessary step to take but I wanted to do it to avoid obvious attention mistakes that could cost me extra time later.
+
+<img width="413" height="229" alt="image" src="https://github.com/user-attachments/assets/8b84ad07-328e-46c7-8301-9f32bf08e302" />
+
+*Fig 97: Empty file creation to store the IP address*
+
+<img width="599" height="77" alt="image" src="https://github.com/user-attachments/assets/09b44242-40e2-4e86-b842-222134a69f0f" />
+
+*Fig 98: Finding the IP address of the VM*
+
+<img width="429" height="222" alt="image" src="https://github.com/user-attachments/assets/01d43453-086b-40db-bdcd-580efa48152d" />
+
+*Fig 99: Saving the IP address in the empty file*
+
+Now on the terminal I ran the command "nmap -A 192.168.20.10 -Pn". It's an aggressive scan that targets my Windows VM and identifies open ports with their specifications. It's also able to bypass firewalls ping block which is the main reason we're using it.
+
+And then I proceeded to get nothing! The scan showed nothing, everything ignored seemingly like firewall did actually block the scan. I scouted the internet and figured out that this command does indeed work with firewall enabled but I had to enable remote desktop first.
+
+<img width="639" height="350" alt="image" src="https://github.com/user-attachments/assets/8659b578-bbb9-40ad-89a7-4b0878ab4d15" />
+
+*Fig 100: Finding nothing with the nmap scan*
+
+To enable remote desktop, I closed the Windows VM, went into settings, display and simply pressed the enable button. I didn't change anything else as it was not necessary.
+
+<img width="591" height="259" alt="image" src="https://github.com/user-attachments/assets/dbaffae9-c83d-4dac-bc5c-78580a23cfea" />
+
+*Fig 101: Enabling remote desktop for Windows VM*
+
+After Windows VM booted up again, I was able to try again but before that I wanted to elaborate on the command line I'm using. After typing nmap -h it shows all the scan types I could do and I'm using -A because it gives general information without overcomplicating anything. Different scans may work better but so far I am not knowledgeable on the subject enough. -Pn is there to skip the initial ping and go straight into scanning.
+
+<img width="609" height="33" alt="image" src="https://github.com/user-attachments/assets/d7c79f72-b866-4ed8-9722-330bc50d82e2" />
+
+*Fig 102: Explanation of nmap -A usage*
+
+With all that out of the way I was able to retry the command line again and see if anything shows up this time without needing to modify Windows VM firewall.
+
+<img width="549" height="89" alt="image" src="https://github.com/user-attachments/assets/b6bad407-4364-4fd3-94bf-c06554973483" />
+
+*Fig 103: Retrying the scan*
+
+Complete nothing again, I did a bit more research and realized I probably should've turned on remote desktop on the VM itself instead of VirtualBox settings.
+
+<img width="651" height="333" alt="image" src="https://github.com/user-attachments/assets/e39e2dc0-88b3-4060-ab84-cf742328d80b" />
+
+*Fig 104: No luck in 2nd attempt at the scan*
+
+A problem with that I encountered was that I couldn't just enable remote desktop as simply because it said my home edition Windows 10 didn't support it and I had to upgrade it in order to enable remote desktop.
+
+<img width="603" height="335" alt="image" src="https://github.com/user-attachments/assets/cfb72e59-770f-4416-9dce-794cddf71bc0" />
+
+*Fig 105: Unable to enable remote desktop function*
+
+I then did some digging and found a public generic Windows 10 pro key that hopefully would work of "VK7JG-NPHTM-C97JM-9MPGT-3V66T". I then typed it in and the product key actually worked.
+
+<img width="687" height="338" alt="image" src="https://github.com/user-attachments/assets/a06bf582-17e9-4976-b2b3-1b4c1d55ad1d" />
+
+*Fig 106: Product key being correct*
+
+I then pressed start and had to wait a bit for it to finish updating, it then restarted my VM on it's own. Once the restart was done, I checked the settings and indeed, I was able to enable remote desktop but before that, I shut down the VM and disabled remote desktop display on the VirutalBox settings from the previous misunderstanding.
+
+<img width="569" height="240" alt="image" src="https://github.com/user-attachments/assets/052b9274-1735-4bb4-b07d-064a350de642" />
+
+*Fig 107: Remote desktop function available to turn on now*
+
+After turning off the remote display setting and booting up Windows VM again. I enabled remote desktop on the VM and proceeded to try the nmap command line on Kali once more.
+
+<img width="534" height="82" alt="image" src="https://github.com/user-attachments/assets/52c21bfc-29cf-4bcf-986e-38c57d1de462" />
+
+*Fig 108: 3rd attempt at Kali nmap scan*
+
+As everyone says, 3rd time's the charm as I finally struck gold. The scan was successful and it showed that port 3389 was open.
+
+<img width="661" height="587" alt="image" src="https://github.com/user-attachments/assets/c43f936f-921f-483b-a7e9-633016e8a42b" />
+
+*Fig 109: 3rd attempt at Kali nmap scan succesfull and port 3389 open*
+
+Now I finally had the time to craft my own malware. First thing first I typed in "msfvenom" to see all the available options with it. The screenshot failed to show all the general options msfvenom provides but it gives an accurate idea of what it's able to do.
+
+<img width="656" height="586" alt="image" src="https://github.com/user-attachments/assets/7d51f743-efc1-4c6f-8da3-57b705b14d98" />
+
+*Fig 110: Possible options with msfvenom*
+
+To build my msfvenom malware I first had to pick a payload to use and I was able to see the list of payloads by typing "msfvenom -l payloads". I am also not to knowledgeable with msfvenom and all the different available payloads because there's just so many of them but I'll be using meterpreter reverse shell payload or more accurately "windows/x64/meterpreter_reverse_tcp"
+
+<img width="1000" height="488" alt="image" src="https://github.com/user-attachments/assets/19646f96-6007-4363-91a2-d2164c3828a2" />
+
+*Fig 111: Finding the payload I'll be using for msfvenom*
+
+Now that I had the payload I'll be using, I was finally able to start building my malware. The command I had to enter required the attackers IP address which is the reason I saved my IP from before. For the port I put in 4444 because it's the default meterpreter port but it didn't matter too much. The -f exe means it's gonna be an executable and -o means that I named it "VytautoCV.pdf.exe" 
+
+<img width="886" height="52" alt="image" src="https://github.com/user-attachments/assets/ab4af4ad-7750-4e9b-8e5c-bb4b91610429" />
+
+*Fig 112: Typing in the command for msfvenom malware creation*
+
+After running the command, I was able to see it successfully created on my desktop.
+
+<img width="487" height="268" alt="image" src="https://github.com/user-attachments/assets/930b7ea8-6dec-4fb2-9c1f-8467852a7361" />
+
+*Fig 113: VytautoCV.pdf.exe malware successfully created*
+
+Now that I had set up my malware, I had to open up a Handler that would listen in on the port that I configured to in the malware. For that to be done I had to open up Metasploit by typing in "msfconsole".
+
+<img width="553" height="571" alt="image" src="https://github.com/user-attachments/assets/81e9e9d3-aa5b-44c6-826b-5e2494a55cae" />
+
+*Fig 114: Opening up Metasploit*
+
+To continue, I had to use multi-handler to enter the exploit itself and for that I had to type in another command.
+
+<img width="438" height="74" alt="image" src="https://github.com/user-attachments/assets/19ff5d72-c432-4202-954a-d39bdcb52f0d" />
+
+*Fig 115: Typing in the command to use multi-handler*
+
+Now when I typed in "options" and pressed enter I was able to see a bunch of different information about the malware but the main thing was that the payload information showed I was still using generic payload so I needed to change that.
+
+<img width="706" height="341" alt="image" src="https://github.com/user-attachments/assets/3e57e2f0-d60a-4da9-a676-bb81e41f8f0b" />
+
+*Fig 116: Malware information*
+
+After typing in a command that changed the payload to the one I chose to be using and typing options again, I was able to see that the payload in use is the correct on this time.
+
+<img width="795" height="402" alt="image" src="https://github.com/user-attachments/assets/93f3b178-331b-4982-bbc6-d34dcb727a4d" />
+
+*Fig 117: Successfully changing the payload in use*
+
+The only thing I still had missing was that the LHOST was not set so the listened information had nowhere to go, to change that I typed in a command to set my Kali VM IP address as the LHOST and saw that it has successfully set the LHOST address.
+
+<img width="781" height="392" alt="image" src="https://github.com/user-attachments/assets/47a4cb90-0aa9-4ac2-9424-d78aaf0a89f8" />
+
+*Fig 118: LHOST address and everything else in place*
+
+With everything set up, I was able to start the handler by typing in "exploit" which started the listening in process.
+
+<img width="461" height="84" alt="image" src="https://github.com/user-attachments/assets/db94c8b7-0032-4722-8c10-35a9ac08bc43" />
+
+*Fig 119: Listening in malware successfully started*
+
+Now that I had malware set up and actively waiting, I only needed a HTTP server for the malware to be downloaded on the victims machine. To do this I decided to use python and in a different terminal tab, I checked if I'm in the directory as the malware, deleted the file that contained the IP address because it's not needed anymore and created a HTTP server in port 6767 which can just be any port not in use.
+
+<img width="536" height="345" alt="image" src="https://github.com/user-attachments/assets/527f0145-d57c-4074-8a3f-927f51c789f1" />
+
+*Fig 120: Opened up a port with the malware inside*
+
+After doing all that, the Windows VM should be able to access my Kali VM and download the malware like that but of course, that is all in theory only and I need to check if it actually works or not.
+
+Before that even if I won't be closing the Kali VM, I still took a snapshot to always come back to this state as I should not be needing to touch Kali VM for a while.
+
+Funny enough, after I took the snapshot, I immediately noticed that instead of the port being 6767, I wrote in 67677 which made it actually be 2141 due to overflowing. I quickly rewrote the command correctly and took another snapshot saving my progress.
+
+<img width="549" height="477" alt="image" src="https://github.com/user-attachments/assets/92b47ef0-c4a1-48de-b80b-efbc2a531eda" />
+
+*Fig 121: CORRECTLY Opened up a port with the malware inside*
+
+<img width="455" height="194" alt="image" src="https://github.com/user-attachments/assets/06872945-b45a-43da-b072-10ed3a55db92" />
+
+*Fig 122: 4th snapshot saved to have a backup if it's needed*
+
+And so with that, everything is done on the Kali machine for now and I was able to put my full focus on the Windows VM.
