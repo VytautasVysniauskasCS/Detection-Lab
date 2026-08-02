@@ -529,3 +529,103 @@ Without touching anything else, I took another snapshot for installing Sysmon an
 <img width="328" height="157" alt="image" src="https://github.com/user-attachments/assets/b4d9a828-7ab0-4664-8707-5841fddb162d" />
 
 *Fig 82: Taking the 4th snapshot for Sysmon installation*
+
+## 5) Extra Modifications
+
+Before starting with malware setup, I wanted to do 3 things before that:
+
+1) Increase the available RAM and CPU cores usage in the Windows VM from 4GB and 1 core to 8GB and 2 cores because the VM was working noticeably slow and it bothered me a bit.
+2) Enable Sysmon on Splunk for malware analysis.
+3) Disable shared folder function.
+
+### 5.1) Increasing Windows VM System Usage
+
+This was by far the easiest thing to do but I still couldn't ignore it without doing it. All I had to do was go into VirtualBox, select the Windows VM, go into settings and in the system category change base memory and number of CPUs to whatever I wanted. In this case it was 8GB of RAM and 2 CPU cores
+
+<img width="545" height="114" alt="image" src="https://github.com/user-attachments/assets/bfeb8887-36dc-44db-a976-b019584968dc" />
+
+*Fig 83: Changing available RAM usage*
+
+<img width="560" height="169" alt="image" src="https://github.com/user-attachments/assets/b8e8a5a5-2ed6-4f2e-b235-3aa97ad832f8" />
+
+*Fig 84: Changing available CPU cores usage*
+
+### 5.2) Enabling Sysmon on Splunk
+
+For this I had to actually start the Windows VM. Instantly it felt like the VM was running a lot better.
+
+To enter Splunk, I had to open up my web browser, in this Microsoft Edge, and then enter localhost via typing localhost:8000 in the search engine. After that I had to login but my login credentials were already saved so all I had to do was press the login button.
+
+<img width="1266" height="662" alt="image" src="https://github.com/user-attachments/assets/6bb25b92-abd9-4db0-99e3-4f2810e222d6" />
+
+*Fig 85: Entering Splunk*
+
+Before installing Sysmon to Splunk I actually had to close the VM and align even more RAM and CPU cores to the VM because Splunk was loading ridiculously slow. I'm not gonna show the screenshots again but I changed the available RAM from 8GB to 12GB and CPU cores from 2 to 6.
+
+To get Sysmon on Splunk, I had to press "Find more apps" and then find "Splunk Add-on for Sysmon". This was the sentence I would've said and nothing more if everything went according to plan, but unknown to me, which should've been pretty obvious actually, I needed internet access if I wanted to find other apps to install. On the VM I was stuck on this loading screen thinking it was just Splunk loading too slow but in reality it was the issue that I had no internet access in a place where I needed internet.
+
+<img width="1133" height="310" alt="image" src="https://github.com/user-attachments/assets/d76bbb8d-d8bd-4a33-869c-dbd67b1dcdce" />
+
+*Fig 86: Not finding any apps due to no internet access from internal network on the VM*
+
+I still decided to keep the extra resources I allocated on the Windows VM because it made navigating Splunk and other things easier and faster on the VM. Now I had to find a way to install the add-on on the VM with no internet access and decided to try my luck with the shared folder function once again.
+
+I started off with logging into Splunkbase with my account to try and find the add-on I was looking for.
+
+<img width="527" height="408" alt="image" src="https://github.com/user-attachments/assets/de2f15f3-5d68-4b9d-8d9a-d308970c70f7" />
+
+*Fig 87: Login to my Splunk account*
+
+After entering Splunkbase, the place to download extra applications for Splunk, I searched for Sysmon and quickly found what I was looking for.
+
+<img width="539" height="397" alt="image" src="https://github.com/user-attachments/assets/ef3e5de2-7b76-4fc3-86c9-e543c1cd6a32" />
+
+*Fig 88: Finding "Sysmon Add-on for Splunk"*
+
+After finding it, it was a simple process of me just pressing the download button and agreeing with their license rules.
+
+<img width="928" height="337" alt="image" src="https://github.com/user-attachments/assets/207bb4e6-2abe-4650-92c4-9429683bbe3c" />
+
+*Fig 89: Downloading the add-on*
+
+I once again transferred the file to shared_folder folder so that I could access it in the VM.
+
+<img width="1194" height="453" alt="image" src="https://github.com/user-attachments/assets/8e0ac8ba-4f73-4657-9a59-27d0d1d03e7b" />
+
+*Fig 90: Saving myself with the share folder function once again*
+
+I moved the file to my download folder to make life easier and then got back into Splunk on the VM to go to "Manage apps" section and pressed on the button "Install App From File" to do exactly what it says.
+
+<img width="486" height="117" alt="image" src="https://github.com/user-attachments/assets/a281dca2-e847-45fd-97fb-06624e41f049" />
+
+*Fig 91: The option to install the add-on from a file*
+
+I then simply dragged and dropped the file to the shown section and pressed "upload" to successfully install the add-on for Sysmon.
+
+<img width="699" height="330" alt="image" src="https://github.com/user-attachments/assets/4e01aab6-d383-4985-a4b3-cd9e982dea14" />
+
+*Fig 92: Uploading the file*
+
+<img width="450" height="234" alt="image" src="https://github.com/user-attachments/assets/96652f97-cd7f-4ce6-b0af-d9b8b6a0b76d" />
+
+*Fig 93: Confirmation for the successful installation*
+
+Needless to say, I didn't hesitate to take another snapshot after the installation was complete. For now I believe to have finally been done with installation troubleshooting.
+
+<img width="395" height="165" alt="image" src="https://github.com/user-attachments/assets/69c977fb-35eb-4d01-92ba-c004495107d2" />
+
+*Fig 94: Taking 5th snapshot for Sysmon add-on installation*
+
+### 5.3) Shared Folder Removal
+
+Though I will not be installing any dangerous malware for now, it is still good practice to remove any possible connection from the VMs to my host machine. Believing to not need the shared folder feature for now anymore, I simply removed the folder I created via VirtualBox settings for the Windows VM.
+
+<img width="706" height="79" alt="image" src="https://github.com/user-attachments/assets/6b2bc595-cbd2-46c4-b44c-7057639c230c" />
+
+*Fig 95: Removal of the Windows VM shared_folder*
+
+It is worth noting that I didn't actually delete the folder, I just removed access to it from the VM. If I will need in the future, the folder with it's contents is still on my host machine.
+
+<img width="666" height="323" alt="image" src="https://github.com/user-attachments/assets/4e741f5f-9ce4-4148-b9e4-48c22333e41e" />
+
+*Fig 96: Continued existence of the "shared_folder" on my host machine*
