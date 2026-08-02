@@ -1,4 +1,4 @@
-<img width="642" height="522" alt="image" src="https://github.com/user-attachments/assets/c96da62e-9166-4a0c-99a5-936b6958e114" /># Detection Lab
+# Detection Lab
 
 ## Objective
 This project's objective was to build a home lab for practicing attack detection using a SIEM. Rather than just installing tools, I wanted to generate realistic attack activity, write my own detection logic, and document the full process from log ingestion to alert.
