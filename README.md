@@ -417,3 +417,115 @@ Because I made a ton of progress that I was scared to lose due to some error, I 
 <img width="351" height="183" alt="image" src="https://github.com/user-attachments/assets/d00bfe38-8166-40f1-98ea-c06f7120152f" />
 
 *Fig 63: Taking the 3rd snapshot after Splunk installation*
+
+## 4) Sysmon Setup
+
+Due to running into the same problem of Sysmon requiring internet to install, I decided to take use of the shared folder feature again to complete the Sysmon installation on Windows VM.
+
+To download Sysmon, which is a free Microsoft tool for monitoring, I visited their website and downloaded the version for Windows because I'll be running it on Windows VM.
+
+<img width="367" height="302" alt="image" src="https://github.com/user-attachments/assets/20c82eaf-d7e7-45a2-86d4-bb7a4bf65689" />
+
+*Fig 64: Where to download Sysmon*
+
+In order to avoid unnecessary noise when monitoring, I also downloaded a configuration file that will funnel out the noise I won't be needing.
+
+For the config file, I used one that's on this github page of github.com/olafhartong/sysmon-modular/tree/master and then found the file sysmonconfig.xml which I proceeded to open, then pressed raw and right clicked anywhere to save as sysmonconf.xml but realistically you can save it as whatever you want, you just need to make sure it ends in ".xml".
+
+<img width="927" height="50" alt="image" src="https://github.com/user-attachments/assets/7ce01d24-c491-413b-a11b-8dfdac616e89" />
+
+*Fig 65: Finding the config file*
+
+<img width="280" height="56" alt="image" src="https://github.com/user-attachments/assets/dbe301c4-a449-4d8e-8c95-fe3c5e25ac8f" />
+
+*Fig 66: Pressing the "raw" button at the top right of the screen*
+
+<img width="204" height="67" alt="image" src="https://github.com/user-attachments/assets/20d7b9fe-444f-43ab-9ccb-875a865be57f" />
+
+*Fig 67: Saving as the file "sysmoncomf.xml"*
+
+Before I put in the downloaded files into the shared folder for the VM, I extracted the zip when downloading Sysmon itself. Only then did I put in the files into the shared folder and received them on the VM.
+
+<img width="544" height="279" alt="image" src="https://github.com/user-attachments/assets/0de87824-3e13-46a0-a54f-e4b9fa75c03d" />
+
+*Fig 68: Extracting Sysmon.zip*
+
+<img width="1266" height="324" alt="image" src="https://github.com/user-attachments/assets/eceb8b29-51db-4722-a7db-d5bd0a7c7b9e" />
+
+*Fig 69: Transferring the files to the VM via shared folder feature*
+
+For my own sake, I moved the files to the download folder because I didn't know the possibilities of doing the installation process in the shared folder and didn't want to risk anything. 
+
+For the installation process, instead of just starting the executable file, I booted up PowerShell with admin privileges to install it properly because in short, system kernel and driver that requires such type of installation to make sure it works as intended.
+
+<img width="774" height="279" alt="image" src="https://github.com/user-attachments/assets/ef49242f-4232-466b-b343-0a27ece32af2" />
+
+*Fig 70: Starting up PowerShell with administrative privileges*
+
+After that I needed to go the directory where the Sysmon files are at and for that I simply copied the directory from file explorer and pasted it in after writing "cd" into the PowerShell command line. 
+
+<img width="675" height="163" alt="image" src="https://github.com/user-attachments/assets/1c8d7293-d124-498f-b3ad-de0112c898a6" />
+
+*Fig 71: Copying the directory path to Sysmon files*
+
+<img width="417" height="41" alt="image" src="https://github.com/user-attachments/assets/cf7bb959-ebf5-45a7-bf3a-e991f9ab9c3f" />
+
+*Fig 72: Getting to the directory in PowerShell with cd command*
+
+Before continuing with anything, I had to move the configuration file to the same directory as all the other files.
+
+<img width="679" height="208" alt="image" src="https://github.com/user-attachments/assets/3c213451-a3aa-4b3e-ae6e-e3a02b6d368c" />
+
+*Fig 73: Moving the sysmonconf file to the Sysmon directory*
+
+After that, I was finally able to begin installing. There were a few different exe files but because I'm using a Windows VM for 64 bits, I needed to start Sysmon64 which I just wrote in the PowerShell command line and pressed tab to autofill.
+
+<img width="366" height="19" alt="image" src="https://github.com/user-attachments/assets/b45e3895-7fa2-42a9-8800-cbb0eda83618" />
+
+*Fig 74: Writing the command in to install Sysmon via PowerShell*
+
+After I pressed enter, I got showed a lot of information that neither confirmed or not that Sysmon installed correctly so I had to confirm myself. For that I opened up Services menu via Windows search future and tried to find the Sysmon service.
+
+<img width="834" height="583" alt="image" src="https://github.com/user-attachments/assets/994e8c97-03fd-40e3-a245-18653673900c" />
+
+*Fig 75: Information for how to install Sysmon without confirming anything*
+
+<img width="359" height="597" alt="image" src="https://github.com/user-attachments/assets/681ee738-cb41-46ce-a88c-87ff4fc83514" />
+
+*Fig 76: Opening up Services page via Windows search tool*
+
+Because services are sorted in an alphabetical manner, I searched all services starting with an "S" and scrolled until I found other similar service names. However, Sysmon was nowhere to be seen so I was able to confirm that it didn't install on the VM yet.
+
+<img width="204" height="135" alt="image" src="https://github.com/user-attachments/assets/6b260995-63da-4e9b-9bfb-be29007b2237" />
+
+*Fig 77: Confirming that Sysmon is not in services tab and didn't install yet*
+
+After finding information online and reading the help command that appeared after I tried installing Sysmon, I tried again the same command but this time adding -i ./sysmonconf.xml which basically adds on the config file that I downloaded earlier to the Sysmon installation.
+
+<img width="506" height="31" alt="image" src="https://github.com/user-attachments/assets/5b734609-3e01-4067-972b-b0aaabaf7f82" />
+
+*Fig 78: Updated command line for Sysmon installation*
+
+After pressing enter to start the command, I got a pop up with license agreement asking if I accept and after pressing accept it seemingly started the installation process.
+
+<img width="462" height="320" alt="image" src="https://github.com/user-attachments/assets/8d0fe59a-7e8b-451c-8a1b-0bae799bf497" />
+
+*Fig 79: License agreement pop up after entering the installation command*
+
+<img width="618" height="269" alt="image" src="https://github.com/user-attachments/assets/6e2839d5-19da-42e6-b287-f0910b7ed0c6" />
+
+*Fig 80: Presumably Sysmon being installed on the VM*
+
+Finally, I still had to confirm if Sysmon actually installed and for that I used the exact same trick as before.
+
+After clicking the refresh button at the top left of the services window, I was able to see Sysmon64 appear which confirmed it has installed properly on the Windows VM.
+
+<img width="419" height="47" alt="image" src="https://github.com/user-attachments/assets/f66e9962-3b12-4895-9feb-d81a8a06a880" />
+
+*Fig 81: Sysmon64 appearing on the services page and confirming the installation*
+
+Without touching anything else, I took another snapshot for installing Sysmon and closed the Windows VM for now.
+
+<img width="328" height="157" alt="image" src="https://github.com/user-attachments/assets/b4d9a828-7ab0-4664-8707-5841fddb162d" />
+
+*Fig 82: Taking the 4th snapshot for Sysmon installation*
