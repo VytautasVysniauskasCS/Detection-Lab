@@ -814,7 +814,7 @@ Now I had to type in the IP address of my Kali VM and the port 6767 into the web
 
 *Fig 125: Typing in the IP address and port used in Kali VM*
 
-After I pressed enter, I was finally able to see my own creation. As much as I wanted to admire it, I had to move on and actually download it now. After pressing on it, the browser tried to warn it but obviously I knew better and proceeded anyway.
+After I pressed enter, I was finally able to see the malware I created as a downloadable file. Now I had to play the victim and actually download it. After pressing on it, the browser tried to warn it but obviously for this project, downloading this unsafe file was the whole point.
 
 <img width="380" height="285" alt="image" src="https://github.com/user-attachments/assets/369df3ee-3225-4b1b-8a80-3a2da0c06bc4" />
 
@@ -824,7 +824,7 @@ After I pressed enter, I was finally able to see my own creation. As much as I w
 
 *Fig 127: Web browser warning that the file shouldn't be kept unless we know it's safe*
 
-One thing fun noting is that without enabling file extensions, the download looks like a safe .pdf file but as soon as I enabled file extensions under the "view" options in file explorer I saw the the file looks really fishy. Tldr just a reminder that it's always good practice to turn on file extensions to avoid risks like these.
+One thing worth nothing noting is that without enabling file extensions, the download looks like a safe .pdf file but as soon as I enabled file extensions under the "view" options in file explorer I saw the the file looks really fishy. Tldr just a reminder that it's always good practice to turn on file extensions to avoid risks like these.
 
 <img width="629" height="112" alt="image" src="https://github.com/user-attachments/assets/ba7bb292-9470-4f89-883f-13678c69141a" />
 
@@ -834,7 +834,7 @@ One thing fun noting is that without enabling file extensions, the download look
 
 *Fig 129: Clearly noticeable the file ends with .exe now*
 
-Now that the file has successfully been downloaded onto the Windows victim machine (VM haha...), the only left to do is to run the file. Once again I got hit with warnings but I believe I know better.
+Now that the file has successfully been downloaded onto the Windows victim machine (VM haha...), the only left to do is to run the file. Once again I got shown a warning that the file may be unsafe but I already knew that and proceeded anyway.
 
 <img width="531" height="499" alt="image" src="https://github.com/user-attachments/assets/75bb17be-4d3d-431b-9b32-89cc47ebb8d6" />
 
@@ -852,13 +852,13 @@ I opened task manager as well and found the same file running in the background 
 
 *Fig 132: Malware file running quietly in background*
 
-Now that the malware was in place and running, I wanted to take another snapshot in case God decides to strike me down so that I could have a backup at least.
+Now that the malware was in place and running, I wanted to take another snapshot in case something goes horribly wrong or crashes so that I could have a backup at least.
 
 <img width="462" height="203" alt="image" src="https://github.com/user-attachments/assets/3a801c13-1d5c-4ad9-9cd6-4c0ee7b9eeba" />
 
 *Fig 133: 6th snapshot taken as an extra backup*
 
-For now, it was time to head back to Kali and employ myself with Linux for just a little bit longer.
+For now, it was time to head back to Kali and see how the malware's downloaded and execution changed the status there.
 
 Looking at the handler, I saw that it also showed at an established connection which means everything was working perfectly in Kali as well.
 
@@ -866,7 +866,7 @@ Looking at the handler, I saw that it also showed at an established connection w
 
 *Fig 134: Kali showing connection with Windows VM established*
 
-Now there's a bunch of commands I could be testing and using, I could type help and start going through them by one another but instead I'll just stick with simplicity for now and type in "shell" which basically makes the victim open their command terminal.
+Now there's a bunch of commands I could be testing and using, I could type help and start going through them by one another but instead I'll just stick with simplicity for now and type in "shell" which basically makes the victim open their command terminal and would allow me to extract data and information that normally would be sensitive for the user and impossibly for me to get without their consent.
 
 <img width="488" height="24" alt="image" src="https://github.com/user-attachments/assets/9aabf1fc-7678-4420-9e01-5150d1d53252" />
 
@@ -876,13 +876,13 @@ Now there's a bunch of commands I could be testing and using, I could type help 
 
 *Fig 136: Command successfully executed and opened up the victims terminal*
 
-Now it's finally time I had some fun with the malware so I wrote a few commands to test the toy out. I wrote in "net user", "net group" and "ipconfig".
+Now it was finally time to test out the malware I created and see the potential damage it could make. I wrote in "net user", "net localgroup" and "ipconfig" in the Kali terminal.
 
 <img width="582" height="646" alt="image" src="https://github.com/user-attachments/assets/f7e12958-ff20-4911-a4d4-6e4b8b46bebd" />
 
 *Fig 137: Command successfully executing*
 
-Now the commands were successful but it's more interesting to see what happened on the Windows victim machine itself so it was time for me head back there and say farewell to Linux once more. I still couldn't say goodbye without another snapshot so I took another one because that's just how God made me.
+Now the commands were successful but it's more interesting to see what happened on the Windows victim machine itself so it was time for me head back onto the victims machine to see the results of malware being used in action. Just in case, I still took another snapshot because I didn't want to risk losing any small progress made in case of a crash.
 
 <img width="626" height="191" alt="image" src="https://github.com/user-attachments/assets/40a37b27-e545-42ca-ac90-0e23cd3d5a69" />
 
@@ -890,7 +890,7 @@ Now the commands were successful but it's more interesting to see what happened 
 
 ## 8) Malware Analysis
 
-Now turns out I did an oopsie and hadn't yet configured Sysmon properly. I still had to do some changes to make sure Splunk is able to ingest Sysmon logs properly.
+Now turns out I didn't do everything exactly in order and had to take some extra steps. I still had to do some changes to make sure Splunk is able to ingest Sysmon logs properly.
 
 To start off with all that, I first had to navigate to system directory of Splunk.
 
@@ -904,13 +904,13 @@ After that I had to go into the "default" folder and copy the file "inputs.conf"
 
 *Fig 140: Pasting the file "inputs.conf" into local folder*
 
-Lastly I had to modify the file and add in a bunch of code at the bottom of all the other code that allows Sysmon to work properly which ngl, I just downloaded on my host machine, copied the text and pasted it in the inputs.conf file.
+Lastly I had to modify the file and add in a bunch of code at the bottom of all the other code that allows Sysmon to work properly. For that, I downloaded the modified code on my host machine, copied the text and pasted it in the inputs.conf file.
 
 <img width="540" height="537" alt="image" src="https://github.com/user-attachments/assets/03990159-2809-4d97-bd04-e72faeb4ec39" />
 
 *Fig 141: The extra code that was added in "inputs.conf"*
 
-I did turn on Host to Guest clipboard functionality for this to make life easier and not need to rewrite everything myself by hand. To do that, on the VM itself, you pick devices, then shared clipboard and whatever suits you in your need but for me, because I'll be dealing with malware, I'm not taking risk and only allowing host to guest. Do note that guest additions are needed for this to work but I installed them earlier already when trying to make shared folders work.
+I did turn on Host to Guest clipboard functionality for this to make life easier and not need to rewrite everything myself by hand. To do that, on the VM itself, I picked devices, then shared clipboard and, because I'll be dealing with malware, I'm not taking risk and only allowing host to guest. Do note that guest additions are needed for this to work but I installed them earlier already when trying to make shared folders work.
 
 <img width="459" height="292" alt="image" src="https://github.com/user-attachments/assets/334f3ee1-10c1-4668-94cf-6086a11000d5" />
 
@@ -942,7 +942,7 @@ In the same page I was able to scroll down and find the new index "endpoint" sav
 
 *Fig 146: Confirming the new index is saved and active*
 
-Now it was time to head back to the main page and go finally into searching for those endpoints. After heading back to the main page, I pressed on the search task to start the hunting.
+Now it was time to head back to the main page and finally into searching for those endpoints that I just established. After heading back to the main page, I pressed on the search task to prepare for the analysis.
 
 <img width="1144" height="461" alt="image" src="https://github.com/user-attachments/assets/6cc18d4c-ad77-47e3-9244-adfebaf839cf" />
 
@@ -954,7 +954,7 @@ Now after searching index=endpoint with the IP address of Kali machine I SHOULD'
 
 *Fig 148: No events logged that I was looking for from the malware*
 
-That means God manifested my nightmares and made them a reality, that little silly Sysmon config needed to be done WAY before and so that means I'll have to redo basically everything on the Kali VM starting from the nmap scan itself.
+That means the wrong order of actions really made a big different in the end, that Sysmon config needed to be done WAY before and so that means I'll have to redo basically everything on the Kali VM starting from the nmap scan itself.
 
 Luckily for me, I documented everything I did so this should be pretty quick but it's one of those works I can't document much because I've already done it all once, I just need do it all again. Also luckily for me, I took snapshots and added descriptions for them so I know I need to head back to snapshot 2 after I configured the IP settings.
 
@@ -962,18 +962,16 @@ Luckily for me, I documented everything I did so this should be pretty quick but
 
 *Fig 148: Snapshot 2 being exactly what I need to go back to*
 
-Best of luck to me, I'll be back after some time.
-
 Now that I'm back in progress wise again, I have a few things to say:
 
-1) With no troubleshooting needed and having all the documentation done to see how I did it all, I'm making progress SUPER fast and I'm already back to where I left off in bere minutes.
+1) With no troubleshooting needed and having all the documentation done to see how I did it all, I'm making progress really fast and I'm already back to where I left off in bere minutes.
 2) I checked, and after restoring the snapshot to the 2nd snapshot, the malware is not running the the Windows VM anymore. I confirmed this via searching for the established connection with task manager and netstat on cmd. I couldn't find VytautoCV.pdf.exe on either and on the netstat search. Between the connections I once found the connection to Kali VM, I could no longer see it there.
 
 <img width="659" height="137" alt="image" src="https://github.com/user-attachments/assets/bdf1217a-be4e-4c18-9984-79d6cb872b83" />
 
 *Fig 149: Old Kali malware connection gone after restoring old snapshot*
 
-The only thing left undone was running the NEW upgraded malware that will replace my past mistakes.
+The only thing left undone was running the new upgraded malware that will replace my past malware that was ran without properly setting up Sysmon for Splunk.
 
 <img width="619" height="607" alt="image" src="https://github.com/user-attachments/assets/f1a86736-9e95-43cf-a07a-e3cd73e598fb" />
 
@@ -985,7 +983,7 @@ Running the file and then running the netstat -anob command on cmd with admin pr
 
 *Fig 151: New malware with connection successfully established*
 
-I then for the LIFE OF ME could not figure out why I didn't see any updates on Kali VM until I realized that I typed in a different port without changing the LPORT settings.
+I then just could not figure out why I didn't see any updates on Kali VM until I realized that I typed in a different port without changing the LPORT settings.
 
 <img width="535" height="366" alt="image" src="https://github.com/user-attachments/assets/bca51f7b-f0cf-44f5-b0e9-8ad9d4470ba8" />
 
@@ -999,7 +997,7 @@ I then for the LIFE OF ME could not figure out why I didn't see any updates on K
 
 *Fig 154: Didn't change LPORT to port 5555 and kept it as 4444*
 
-After changing both the port and host because I accidentally changed the host when trying to change the port (😭), it was time to test once again.
+After changing both the port and host because I accidentally changed the host when trying to change the port, it was time to test once again.
 
 <img width="642" height="379" alt="image" src="https://github.com/user-attachments/assets/90c8a1d2-1589-4736-9ffa-f56e405ce128" />
 
@@ -1021,7 +1019,7 @@ Now it was FINALLY time to enter Splunk's search function once more. After getti
 
 *Fig 158: Events related to the Kali VM*
 
-Now normally this would be a ton of information to figure anything out but even here we can see interesting things such as which destination ports were targeted. If I didn't make any errors while attacking, this should've only shown port 3389 which is the remote desktop port and the owner of the victim machine could start asking questions like "is it that my remote desktop port being targeted" and maybe even other conclusions. And yes because I was a dum dum, it shows port 5555 was attacked but in the perfect world, this data would never be here.
+Now normally this would be a ton of information to figure anything out but even here we can see interesting things such as which destination ports were targeted. If I didn't make any errors while attacking, this should've only shown port 3389 which is the remote desktop port and the owner of the victim machine could start asking questions like "is it that my remote desktop port being targeted" and maybe even other conclusions. And yes because I made configuration mistakes when setting up the malware, it shows port 5555 was attacked but with correct configurations of the malware, this data would never be here.
 
 <img width="952" height="385" alt="image" src="https://github.com/user-attachments/assets/3fa36302-978c-4bcf-95aa-a2018e538452" />
 
@@ -1033,7 +1031,7 @@ Now I tried searching for logs that have the malware name of "VytautoNewCV.jpg.e
 
 *Fig 160: Events containing "VytautoNewCV.jpg.exe" malware*
 
-After that, I scrolled down till I saw "EventID" section. In short, EventCode is basically different events with their specific Code specifying what happened. In this scenario though I will investigate EventCode = 1 so I'll click on it and see what shows up.
+After that, I scrolled down till I saw "EventID" section. In short, EventCode is basically different events with their specific code specifying what happened. In this scenario though I will investigate EventCode = 1 so I clicked on it to see what would show up.
 
 <img width="940" height="594" alt="image" src="https://github.com/user-attachments/assets/5ba0816d-aeb8-489b-a2c7-27ef942d3bd4" />
 
